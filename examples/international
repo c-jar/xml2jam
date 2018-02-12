@@ -1,0 +1,164 @@
+; Movement Title: 
+; Composer: Original lyrics by Eugiène Pottier
+; Source: http://musescore.com/tgbhi/the-internationale-piano
+TEMPO 120
+; Measure 0
+DS4 1.00
+; Measure 1
+GS4 1.50
+G4 0.50
+AS4 0.50
+GS4 0.50
+DS4 0.50
+C4 0.50
+; Measure 2
+F4 2.00
+CS4 1.00
+PAUSE 0.50
+F4 0.50
+; Measure 3
+AS4 1.50
+GS4 0.50
+G4 0.50
+F4 0.50
+DS4 0.50
+CS4 0.50
+; Measure 4
+C4 3.00
+DS4 1.00
+; Measure 5
+GS4 1.50
+G4 0.50
+AS4 0.50
+GS4 0.50
+DS4 0.50
+C4 0.50
+; Measure 6
+F4 2.00
+CS4 0.50
+CS4 0.50
+AS4 0.50
+GS4 0.50
+; Measure 7
+G4 1.00
+AS4 1.00
+CS5 1.00
+G4 1.00
+; Measure 8
+C4 3.00
+C5 0.75
+AS4 0.25
+; Measure 9
+G4 1.50
+G4 0.50
+F4 0.75
+G4 0.25
+GS4 0.50
+F4 0.50
+; Measure 10
+G4 2.00
+DS4 0.50
+DS4 0.50
+D4 0.50
+DS4 0.50
+; Measure 11
+F4 1.50
+F4 0.50
+AS4 1.50
+GS4 0.50
+; Measure 12
+G4 3.00
+D4 1.00
+; Measure 13
+AS4 1.50
+G4 0.50
+DS4 0.50
+DS4 0.50
+D4 0.50
+DS4 0.50
+; Measure 14
+C5 2.00
+GS4 0.50
+F4 0.50
+G4 0.50
+GS4 0.50
+; Measure 15
+G4 1.00
+AS4 1.00
+GS4 1.00
+F4 1.00
+; Measure 16
+DS4 3.00
+C5 0.75
+AS4 0.25
+; Measure 17
+GS4 2.00
+DS4 1.50
+C4 0.50
+; Measure 18
+F4 2.00
+CS4 1.00
+AS4 0.75
+GS4 0.25
+; Measure 19
+G4 2.00
+F4 1.00
+DS4 1.00
+; Measure 20
+DS4 3.00
+DS4 1.00
+; Measure 21
+C5 1.50
+C5 0.50
+AS4 1.00
+DS4 1.00
+; Measure 22
+GS4 2.00
+G4 1.50
+G4 0.50
+; Measure 23
+F4 1.50
+E4 0.50
+F4 1.00
+AS4 1.00
+; Measure 24
+AS4 3.00
+C5 0.75
+AS4 0.25
+; Measure 25
+GS4 2.00
+DS4 1.50
+C4 0.50
+; Measure 26
+F4 2.00
+CS4 1.00
+AS4 0.75
+GS4 0.25
+; Measure 27
+G4 2.00
+F4 1.00
+DS4 1.00
+; Measure 28
+C5 3.00
+C5 1.00
+; Measure 29
+DS5 1.50
+DS5 0.50
+CS5 1.00
+C5 1.00
+; Measure 30
+AS4 1.00
+C5 1.00
+CS5 1.50
+CS5 0.50
+; Measure 31
+C5 1.50
+GS4 0.50
+AS4 1.50
+G4 0.50
+; Measure 32
+GS4 3.00
+DS4 1.00
+; Measure 33
+GS4 3.00
+PAUSE 1.00
