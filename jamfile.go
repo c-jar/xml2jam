@@ -44,7 +44,11 @@ func convertScoreToJam(score Score) (string, error) {
 
   measures := selectPart.Measures
   var division, beatType float64
-  for i, m := range measures {
+  repeatMeasure := -1
+  repeatNumber := uint8(1)
+  ignoreMeasure := false
+  for i := 0; i < len(measures); i++ {
+    m := measures[i]
     if i == 0 {
       tempo := m.Sound.Tempo
       if tempo == 0 {
@@ -67,23 +71,63 @@ func convertScoreToJam(score Score) (string, error) {
     }
     fmt.Println("Read measure ", i)
     strOut += fmt.Sprintf("; Measure %d\n", i)
-    for _, n := range m.Notes {
-      if n.Voice != 1 {
-        fmt.Println("Ignore Voice :", n.Voice)
+
+    // Bar line left
+    for _, barline := range m.Barlines {
+      if barline.Location != "left"{
         continue
       }
-      if n.Chord.Local != "" {
-        fmt.Println("Ignore Chord")
+      if barline.Repeat.Direction == "forward" {
+        repeatMeasure = i
+        fmt.Println("Barline repeat forward")
+        strOut += "; Barline repeat forward\n"
+      }
+      if barline.Ending.Type == "start"{
+        if repeatNumber != barline.Ending.Number {
+          ignoreMeasure = true
+        }
+      }
+    }
+
+    // Notes
+    if ! ignoreMeasure {
+      for _, n := range m.Notes {
+        if n.Voice != 1 {
+          //fmt.Println("Ignore Voice :", n.Voice)
+          continue
+        }
+        if n.Chord.Local != "" {
+          //fmt.Println("Ignore Chord")
+          continue
+        }
+        if n.Rest.Local != ""{
+          strOut += "PAUSE"
+        } else {
+          strOut += fmt.Sprintf("%s%d", applyAlter(n.Pitch.Step, n.Pitch.Alter), n.Pitch.Octave)
+        }
+        strOut += fmt.Sprintf(" %.2f\n",
+          (float64(n.Duration) / division))
+      }
+    }
+
+    // Bar line right
+    for _, barline := range m.Barlines {
+      if barline.Location != "right"{
         continue
       }
-      if n.Rest.Local != ""{
-        strOut += "PAUSE"
-      } else {
-        // TODO Accidental and armure.
-        strOut += fmt.Sprintf("%s%d", applyAlter(n.Pitch.Step, n.Pitch.Alter), n.Pitch.Octave)
+      if barline.Repeat.Direction == "backward" && ! ignoreMeasure {
+        if repeatMeasure == -1 {
+          return "", fmt.Errorf("Read bareline backward but I'm not read bar line forward")
+        }
+        fmt.Println("Barline repeat backward", repeatNumber)
+        strOut += fmt.Sprintf("; Barline repeat backward to %d\n", repeatMeasure)
+        i = repeatMeasure - 1
+        repeatMeasure = -1
+        repeatNumber ++
       }
-      strOut += fmt.Sprintf(" %.2f\n",
-        (float64(n.Duration) / division))
+      if barline.Ending.Type == "stop" {
+        ignoreMeasure = false
+      }
     }
   }
 

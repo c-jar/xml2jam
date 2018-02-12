@@ -80,6 +80,7 @@ type MeasureType struct {
   Attributes AttributesType `xml:"attributes"`
   Sound SoundType `xml:"sound"`
   Notes []NoteType `xml:"note"`
+  Barlines []BarlineType `xml:"barline"`
 }
 
 func (m MeasureType) String() string {
@@ -87,7 +88,11 @@ func (m MeasureType) String() string {
   if m.Number == 1 {
     str += fmt.Sprintf("Attributes: {%s}, ", m.Attributes)
   }
-  return str + fmt.Sprintf("Tempo: %d,\nNotes:\n%s\n}", m.Sound.Tempo, m.Notes)
+  str += fmt.Sprintf("Tempo: %d,\nNotes:\n%s\n", m.Sound.Tempo, m.Notes)
+  if len(m.Barlines) > 0 {
+    str += fmt.Sprintf("Barlines: %s\n", m.Barlines)
+  }
+  return str + "}"
 }
 
 // SoundType contains tempo.
@@ -143,6 +148,37 @@ type PitchType struct {
 func (p PitchType) String() string {
   return fmt.Sprintf("Alter: %d, Step: %s, Octave: %d",
     p.Alter, p.Step, p.Octave)
+}
+
+// BarlineType represents a bar line in measure.
+type BarlineType struct {
+  Location  string      `xml:"location,attr"`
+  Ending    EndingType  `xml:"ending"`
+  Repeat    RepeatType  `xml:"repeat"`
+}
+
+func (b BarlineType) String() string {
+  return fmt.Sprintf("{Location: %s, Ending: {%s}, Repeat: {%s}}",
+    b.Location, b.Ending, b.Repeat)
+}
+
+// EndingType represents a end bar line.
+type EndingType struct {
+  Number  uint8   `xml:"number,attr"`
+  Type    string  `xml:"type,attr"`
+}
+
+func (e EndingType) String() string {
+  return fmt.Sprintf("Number: %d, Type: %s", e.Number, e.Type)
+}
+
+// RepeatType represents a repeat bar line.
+type RepeatType struct {
+  Direction string `xml:"direction,attr"`
+}
+
+func (r RepeatType) String() string {
+  return fmt.Sprintf("Direction: %s", r.Direction)
 }
 
 // readMusicXML read xmlFile and create Score object.
