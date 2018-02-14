@@ -1,7 +1,7 @@
 # xml2jam
 
 This program read music xml file and create a file readable
-by [jam](https://github.com/simsor/jam).
+by [simsor/jam](https://github.com/simsor/jam).
 
 ## Usage
 
