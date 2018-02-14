@@ -137,8 +137,20 @@ func convertScoreToJam(score Score) (string, error) {
 func applyAlter(step string, alter int8) string {
   switch alter {
   case 1:
+    switch step {
+    case "E":
+      return "F"
+    case "B":
+      return "C"
+    }
     return step + "S"
   case -1:
+    switch step {
+    case "C":
+      return "B"
+    case "F":
+      return "E"
+    }
     step = string(byte(step[0]) - 1)
     if step < "A" {
       step = "G"
