@@ -6,5 +6,6 @@ by [jam](https://github.com/simsor/jam).
 ## Usage
 
 ```bash
-$ xml2jam -in music.xml -out jam_file
+$ xml2jam -in music.xml -out jam_file.jam
+$ xml2jam -in music.mxl -out jam_file.jam
 ```
