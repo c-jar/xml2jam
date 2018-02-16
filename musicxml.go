@@ -175,10 +175,11 @@ func (e EndingType) String() string {
 // RepeatType represents a repeat bar line.
 type RepeatType struct {
   Direction string `xml:"direction,attr"`
+  Pass int
 }
 
 func (r RepeatType) String() string {
-  return fmt.Sprintf("Direction: %s", r.Direction)
+  return fmt.Sprintf("Direction: %s, Pass: %d", r.Direction, r.Pass)
 }
 
 // readMusicXML read xmlFile and create Score object.

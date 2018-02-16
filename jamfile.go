@@ -73,14 +73,17 @@ func convertScoreToJam(score Score) (string, error) {
     strOut += fmt.Sprintf("; Measure %d\n", i)
 
     // Bar line left
-    for _, barline := range m.Barlines {
+    for b, barline := range m.Barlines {
       if barline.Location != "left"{
         continue
       }
       if barline.Repeat.Direction == "forward" {
         repeatMeasure = i
-        fmt.Println("Barline repeat forward")
-        strOut += "; Barline repeat forward\n"
+        if barline.Repeat.Pass == 0 {
+          fmt.Println("Barline repeat forward")
+          strOut += "; Barline repeat forward\n"
+          m.Barlines[b].Repeat.Pass ++
+        }
       }
       if barline.Ending.Type == "start"{
         if repeatNumber != barline.Ending.Number {
@@ -111,19 +114,22 @@ func convertScoreToJam(score Score) (string, error) {
     }
 
     // Bar line right
-    for _, barline := range m.Barlines {
+    for b, barline := range m.Barlines {
       if barline.Location != "right"{
         continue
       }
       if barline.Repeat.Direction == "backward" && ! ignoreMeasure {
         if repeatMeasure == -1 {
-          return "", fmt.Errorf("Read bareline backward but I'm not read bar line forward")
+          return "", fmt.Errorf("Read barline backward but I'm not read bar line forward")
         }
-        fmt.Println("Barline repeat backward", repeatNumber)
-        strOut += fmt.Sprintf("; Barline repeat backward to %d\n", repeatMeasure)
-        i = repeatMeasure - 1
-        repeatMeasure = -1
-        repeatNumber ++
+        if barline.Repeat.Pass == 0 {
+          fmt.Println("Barline repeat backward to", repeatMeasure, "(", repeatNumber, ")")
+          strOut += fmt.Sprintf("; Barline repeat backward to %d\n", repeatMeasure)
+          i = repeatMeasure - 1
+          repeatNumber ++
+          repeatMeasure = -1
+        }
+        m.Barlines[b].Repeat.Pass ++
       }
       if barline.Ending.Type == "stop" {
         ignoreMeasure = false
