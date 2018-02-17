@@ -7,12 +7,12 @@ import (
 func convertScoreToJam(score Score) (string, error) {
   var strOut string
 
-  fmt.Println("Add Movment Title in comment ...")
-  strOut += fmt.Sprintf("; Movement Title: %s\n", score.MovementTitle)
+  fmt.Println("Add Title in comment ...")
+  strOut += fmt.Sprintf("; Title: %s\n", score.GetTitle())
 
   fmt.Println("Add Identification in comment ...")
-  if score.Identification.Composer != "" {
-    strOut += fmt.Sprintf("; Composer: %s\n", score.Identification.Composer)
+  for _, c := range score.Identification.Creators {
+    strOut += fmt.Sprintf("; %s: %s\n", c.Type, c.Name)
   }
   if score.Identification.Rights != "" {
     strOut += fmt.Sprintf("; Rights: %s\n", score.Identification.Rights)

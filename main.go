@@ -12,6 +12,8 @@ func init(){
   flag.StringVar(&filenameIn, "in", "", "xml or mxl file name to convert.")
   flag.StringVar(&filenameOut, "out", "", "out jam music file")
   flag.Parse()
+
+
 }
 
 func main() {
@@ -45,7 +47,7 @@ func main() {
   defer outFile.Close()
 
   score, err := readMusicXML(xmlFile)
-  // fmt.Println(score)
+  fmt.Println(score)
   out, err := convertScoreToJam(score)
 
   if err != nil{

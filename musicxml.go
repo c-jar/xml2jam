@@ -13,30 +13,62 @@ type Score struct {
   Identification IdentificationType `xml:"identification"`
   PartList PartListType `xml:"part-list"`
   Parts []PartType `xml:"part"`
+  Work WorkType `xml:"work"`
 }
 
 func (score Score) String() string {
-  return fmt.Sprintf("Title: %s,\nIdentification: %s,\nPart-list : %s\nParts: %s",
+  return fmt.Sprintf("Title: %s, Work: {%s}\n,\nIdentification: %s,\nPart-list : %s\nParts: %s",
     score.MovementTitle,
+    score.Work,
     score.Identification,
     score.PartList,
     score.Parts)
 }
 
+// GetTitle return title of score.
+func (score Score) GetTitle() string {
+  if score.Work.Title != "" {
+    return score.Work.Title
+  }
+  if score.Identification.Title != "" {
+    return score.Identification.Title
+  }
+  return ""
+}
+
+// WorkType represents work
+type WorkType struct {
+  Title string `xml:"work-title"`
+}
+
+func (w WorkType) String() string {
+  return fmt.Sprintf("Title: %s", w.Title)
+}
+
 // IdentificationType represents score's informations.
 type IdentificationType struct {
-  Composer string `xml:"creator"`
+  Creators []CreatorType `xml:"creator"`
 	Rights   string `xml:"rights"`
 	Source   string `xml:"source"`
 	Title    string `xml:"movement-title"`
 }
 
 func (id IdentificationType) String() string {
-  return fmt.Sprintf("Composer : %s, Rights: %s, Source: %s, Title :%s",
-    id.Composer,
+  return fmt.Sprintf("Creators : %s, Rights: %s, Source: %s, Title :%s",
+    id.Creators,
     id.Rights,
     id.Source,
     id.Title)
+}
+
+// CreatorType represents creator of score.
+type CreatorType struct {
+  Type string `xml:"type,attr"`
+  Name string `xml:",chardata"`
+}
+
+func (c CreatorType) String() string {
+  return fmt.Sprintf("{Type: %s, Name: %s}", c.Type, c.Name)
 }
 
 // PartListType represents list of part.
