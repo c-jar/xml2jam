@@ -107,6 +107,7 @@ func (p PartType) String() string {
 		p.Measures)
 }
 
+// GetVoices return list of PartType's voices.
 func (p PartType) GetVoices() []int {
 	var t = make([]int, 0)
 	for _, m := range p.Measures {
@@ -119,6 +120,7 @@ func (p PartType) GetVoices() []int {
 	return t
 }
 
+// GetChords return number max of chords.
 func (p PartType) GetChords(voice int) int {
 	c := 0
 	cmax := 0
